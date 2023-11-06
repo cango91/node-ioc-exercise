@@ -1,6 +1,6 @@
 # Task Manager
 
-This is an excercise in Clean Architecture and IoC/DI pattern in Node ecosystem.
+This is an exercise in Clean Architecture and IoC/DI pattern in Node ecosystem.
 
 # Core Features
 1. **User Registratio/Login**: Users can login and register
