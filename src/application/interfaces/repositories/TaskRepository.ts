@@ -1,4 +1,4 @@
-import { Task } from "../../domain/entities/Task";
+import { Task } from "../../../domain/entities/Task";
 
 export default interface ITaskRepository {
     createTask: (title: string, description: string, userId: string) => Promise<Task | null>;
