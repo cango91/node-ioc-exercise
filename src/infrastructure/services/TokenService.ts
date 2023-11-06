@@ -1,6 +1,7 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import ITokenService from "../../application/services/ITokenService";
-
+import { injectable } from 'inversify';
+@injectable()
 export default class TokenService implements ITokenService {
     generateToken(user: { id: string, username: string }) {
         return jwt.sign({ user }, process.env.JWT_SECRET!, { expiresIn: process.env.JWT_EXPIRES });

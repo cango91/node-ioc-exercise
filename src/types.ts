@@ -3,5 +3,7 @@ export const TYPES = {
     ICryptoService: Symbol.for('ICryptoService'),
     LoginUser: Symbol.for('LoginUser'),
     RegisterUser: Symbol.for('RegisterUser'),
-    ITokenService: Symbol.for('ITokenService')
+    ITokenService: Symbol.for('ITokenService'),
+    UserController: Symbol.for('UserController'),
+    IDbConnection: Symbol.for('IDbConnection')
 }

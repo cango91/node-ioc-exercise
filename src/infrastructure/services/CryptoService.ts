@@ -1,6 +1,8 @@
 import crypto from 'crypto';
 import ICryptoService from "../../application/services/ICryptoService";
+import { injectable } from 'inversify';
 
+@injectable()
 export default class CryptoService implements ICryptoService {
     private HASH_ITER_ROUNDS = 16;
     private HASH_KEY_LENGTH = 64;

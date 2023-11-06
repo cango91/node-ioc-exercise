@@ -3,14 +3,15 @@ import { inject, injectable } from "inversify";
 import LoginUser from "../../use_cases/LoginUser";
 import RegisterUser from "../../use_cases/RegisterUser";
 import ITokenService from "../../services/ITokenService";
+import { TYPES } from "../../../types";
 
 
 @injectable()
 export class UserController {
     constructor(
-        @inject("LoginUser") private loginUser: LoginUser,
-        @inject("RegisterUser") private registerUser: RegisterUser,
-        @inject("ITokenService") private tokenService: ITokenService
+        @inject(TYPES.LoginUser) private loginUser: LoginUser,
+        @inject(TYPES.RegisterUser) private registerUser: RegisterUser,
+        @inject(TYPES.ITokenService) private tokenService: ITokenService
     ) { };
 
     public async createUser(req: Request, res: Response): Promise<void> {
