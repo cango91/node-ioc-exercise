@@ -1,12 +1,13 @@
 import { inject, injectable } from "inversify";
 import IUserRepository from "../interfaces/repositories/UserRepository";
 import ICryptoService from "../services/CryptoService";
+import { TYPES } from "../../types";
 
 @injectable()
 export default class RegisterUser {
     constructor(
-        @inject(Symbol.for('IUserRepository')) private userRepository: IUserRepository,
-        @inject(Symbol.for('ICryptoService')) private cryptoService: ICryptoService
+        @inject(TYPES.IUserRepository) private userRepository: IUserRepository,
+        @inject(TYPES.ICryptoService) private cryptoService: ICryptoService
     ) { }
 
     async execute(username: string, password: string) {
