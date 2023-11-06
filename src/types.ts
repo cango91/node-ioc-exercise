@@ -5,5 +5,10 @@ export const TYPES = {
     RegisterUser: Symbol.for('RegisterUser'),
     ITokenService: Symbol.for('ITokenService'),
     UserController: Symbol.for('UserController'),
-    IDbConnection: Symbol.for('IDbConnection')
+    IDbConnection: Symbol.for('IDbConnection'),
+    ITaskRepository: Symbol.for('ITaskRepository'),
+    CreateTask: Symbol.for('CreateTask'),
+    DeleteTask: Symbol.for('DeleteTask'),
+    UpdateTask: Symbol.for('UpdateTask'),
+    ListTasks: Symbol.for('ListTasks')
 }
