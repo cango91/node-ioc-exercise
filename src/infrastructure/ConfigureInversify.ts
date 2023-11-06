@@ -1,6 +1,6 @@
 import { Container } from "inversify";
 import "reflect-metadata";
-import ICryptoService from "../application/services/CryptoService";
+import ICryptoService from "../application/services/ICryptoService";
 import CryptoService from "./services/CryptoService";
 import { TYPES } from "../types";
 import RegisterUser from "../application/use_cases/RegisterUser";

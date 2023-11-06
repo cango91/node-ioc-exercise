@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import IUserRepository from "../interfaces/repositories/IUserRepository";
-import ICryptoService from "../services/CryptoService";
+import ICryptoService from "../services/ICryptoService";
 import { TYPES } from "../../types";
 
 @injectable()
