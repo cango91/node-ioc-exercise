@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import IUserRepository from "../interfaces/repositories/UserRepository";
+import IUserRepository from "../interfaces/repositories/IUserRepository";
 import ICryptoService from "../services/CryptoService";
 import { TYPES } from "../../types";
 
