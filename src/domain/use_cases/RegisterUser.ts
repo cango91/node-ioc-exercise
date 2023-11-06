@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
-import IUserRepository from "../interfaces/gateway/UserRepository";
+import IUserRepository from "../../interfaces/repositories/UserRepository";
 import { User } from "../entities/User";
-import ICryptoService from "./services/CryptoService";
+import ICryptoService from "../services/CryptoService";
 
 @injectable()
 export default class RegisterUser {
