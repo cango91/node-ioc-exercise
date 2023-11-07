@@ -4,6 +4,5 @@ export class Task{
         public title: string,
         public description: string,
         public userId: string,
-        public isDone: boolean = false,
     ){}
 }

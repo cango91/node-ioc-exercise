@@ -10,7 +10,7 @@ export default class TokenService implements ITokenService {
     verifyToken(token: string): { id: string; username: string; } | null {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
-            return { id: decoded.id, username: decoded.username };
+            return decoded.user;
         } catch (error: any) {
             return null;
         }

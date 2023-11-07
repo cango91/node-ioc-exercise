@@ -16,6 +16,8 @@ import CreateTask from "../application/use_cases/CreateTask";
 import DeleteTask from "../application/use_cases/DeleteTask";
 import UpdateTask from "../application/use_cases/UpdateTask";
 import ListTasks from "../application/use_cases/ListTasks";
+import ITaskRepository from "../application/interfaces/repositories/ITaskRepository";
+import MongoTaskRepository from "./repositories/mongo/MongoTaskRepository";
 
 
 const container = new Container();
@@ -30,6 +32,7 @@ container.bind<CreateTask>(TYPES.CreateTask).to(CreateTask);
 container.bind<DeleteTask>(TYPES.DeleteTask).to(DeleteTask);
 container.bind<UpdateTask>(TYPES.UpdateTask).to(UpdateTask);
 container.bind<ListTasks>(TYPES.ListTasks).to(ListTasks);
+container.bind<ITaskRepository>(TYPES.ITaskRepository).to(MongoTaskRepository);
 
 
 export { container };

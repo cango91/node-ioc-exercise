@@ -10,10 +10,10 @@ export default class UpdateTask {
     constructor(
         @inject(TYPES.ITaskRepository) private taskRepository: ITaskRepository
     ) { }
-    public async execute(userId: string, task: Task) {
-        const existingTask = await this.taskRepository.findTaskById(task.id);
+    public async execute(userId: string, taskId: string, title: string, description: string) {
+        const existingTask = await this.taskRepository.findTaskById(taskId);
         if (!existingTask) throw new Error("Task not found");
-        if (task.userId !== existingTask.userId) throw new Error("Unauthorized");
-        return await this.taskRepository.updateTask(task.id, task.title, task.description);
+        if (userId !== existingTask.userId) throw new Error("Unauthorized");
+        return await this.taskRepository.updateTask(taskId, title, description);
     }
 }

@@ -15,8 +15,15 @@ export class MongoUserRepository implements IUserRepository {
         }
     };
 
-    findUserById(id: string): Promise<User | null> {
-        return new Promise(res => null);
+    async findUserById(id: string): Promise<User | null> {
+        try {
+            const user = await UserModel.findById(id);
+            if (!user) return null;
+            return { id: user?.id.toString, password: user?.password, username: user?.username };
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
     };
 
     async findUserByUsername(username: string): Promise<User | null> {
@@ -30,9 +37,9 @@ export class MongoUserRepository implements IUserRepository {
         }
     };
     updatePassword(id: string, oldPassword: string, newPassword: string): Promise<boolean> {
-        return new Promise(res => false);
+        return new Promise(() => false);
     };
     deleteUser(id: string): Promise<boolean> {
-        return new Promise(res => false);
+        return new Promise(() => false);
     };
 }
