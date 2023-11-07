@@ -1,3 +1,4 @@
+import path from 'path';
 import express, { Application } from 'express';
 import registerRoutes from './routes';
 import morgan from 'morgan';
@@ -18,6 +19,10 @@ export class Server {
         this.app.use(bearerMiddleware);
         const router = registerRoutes(container);
         this.app.use(router);
+        this.app.use(express.static(path.join(__dirname, 'public')));
+        this.app.get('*', (req,res) =>{
+            res.sendFile(path.join(__dirname,'public','index.html'));
+        })
     }
     public async start(): Promise<void> {
         const port = process.env.PORT || 3000;

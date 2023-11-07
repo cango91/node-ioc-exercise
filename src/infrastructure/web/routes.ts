@@ -13,13 +13,13 @@ export default function registerRoutes(container: Container) {
     const taskController = container.resolve(TaskController);
     const expressAdapter = new ExpressAdapter(userController, taskController);
 
-    router.post('/users', expressAdapter.createUser.bind(expressAdapter));
-    router.post('/users/login', expressAdapter.login.bind(expressAdapter));
+    router.post('/api/users', expressAdapter.createUser.bind(expressAdapter));
+    router.post('/api/users/login', expressAdapter.login.bind(expressAdapter));
 
-    router.post('/tasks', requireLoginMiddleware, expressAdapter.createTask.bind(expressAdapter));
-    router.put('/tasks/:id', requireLoginMiddleware, expressAdapter.updateTask.bind(expressAdapter));
-    router.delete('/tasks/:id', requireLoginMiddleware, expressAdapter.deleteTask.bind(expressAdapter));
-    router.get('/tasks', requireLoginMiddleware, expressAdapter.listTasks.bind(expressAdapter));
+    router.post('/api/tasks', requireLoginMiddleware, expressAdapter.createTask.bind(expressAdapter));
+    router.put('/api/tasks/:id', requireLoginMiddleware, expressAdapter.updateTask.bind(expressAdapter));
+    router.delete('/api/tasks/:id', requireLoginMiddleware, expressAdapter.deleteTask.bind(expressAdapter));
+    router.get('/api/tasks', requireLoginMiddleware, expressAdapter.listTasks.bind(expressAdapter));
 
     return router;
 }
