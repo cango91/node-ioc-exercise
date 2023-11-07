@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --verbose",
+    "build": "tsc",
     "start": "nodemon"
   },
   "keywords": [],

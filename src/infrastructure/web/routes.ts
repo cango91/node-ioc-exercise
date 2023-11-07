@@ -4,20 +4,22 @@ import { UserController } from "../../application/interfaces/controllers/UserCon
 import requireLoginMiddleware from "./middleware/requireLogin";
 import { TaskController } from "../../application/interfaces/controllers/TaskController";
 import IRequestUser from "../../application/interfaces/controllers/IRequestUser";
+import ExpressAdapter from "./ExpressAdapter";
 
 
 export default function registerRoutes(container: Container) {
     const router = Router();
     const userController = container.resolve(UserController);
     const taskController = container.resolve(TaskController);
+    const expressAdapter = new ExpressAdapter(userController, taskController);
 
-    router.post('/users', (req, res) => userController.createUser(req, res));
-    router.post('/users/login', (req, res) => userController.login(req, res));
+    router.post('/users', expressAdapter.createUser.bind(expressAdapter));
+    router.post('/users/login', expressAdapter.login.bind(expressAdapter));
 
-    router.post('/tasks', requireLoginMiddleware, (req, res) => taskController.create(req, res));
-    router.put('/tasks/:id', requireLoginMiddleware, (req, res) => taskController.update(req, res));
-    router.delete('/tasks/:id', requireLoginMiddleware, (req, res) => taskController.delete(req, res));
-    router.get('/tasks', requireLoginMiddleware, (req, res) => taskController.list(req, res));
+    router.post('/tasks', requireLoginMiddleware, expressAdapter.createTask.bind(expressAdapter));
+    router.put('/tasks/:id', requireLoginMiddleware, expressAdapter.updateTask.bind(expressAdapter));
+    router.delete('/tasks/:id', requireLoginMiddleware, expressAdapter.deleteTask.bind(expressAdapter));
+    router.get('/tasks', requireLoginMiddleware, expressAdapter.listTasks.bind(expressAdapter));
 
     return router;
 }

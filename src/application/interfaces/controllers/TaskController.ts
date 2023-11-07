@@ -6,9 +6,13 @@ import IRequestUser from "./IRequestUser";
 import DeleteTask from "../../use_cases/DeleteTask";
 import UpdateTask from "../../use_cases/UpdateTask";
 import ListTasks from "../../use_cases/ListTasks";
+import ITaskController from "./ITaskController";
+import CreateTaskDTO from "../../dto/CreateTask";
+import TaskDTO from "../../dto/Task";
+import UpdateTaskDTO from "../../dto/UpdateTask";
 
 @injectable()
-export class TaskController {
+export class TaskController implements ITaskController {
     constructor(
         @inject(TYPES.CreateTask) private createTask: CreateTask,
         @inject(TYPES.DeleteTask) private deleteTask: DeleteTask,
@@ -16,53 +20,23 @@ export class TaskController {
         @inject(TYPES.ListTasks) private listTasks: ListTasks,
     ) { }
 
-    public async create(req: Request & IRequestUser, res: Response) {
-        try {
-            const user = req.user;
-            const { title, description } = req.body;
-            console.log(user);
-            if (!user) return res.status(401).json({ error: "Unauthorized" });
-            const task = await this.createTask.execute(user?.id!, title, description);
-            if (!task) return res.status(400).json({ error: "Could not create task" });
-            return res.status(200).json(task);
-        } catch (error: any) {
-            res.status(400).json({ error: error.message });
-        }
+    public async create(taskData: CreateTaskDTO, userId: string): Promise<TaskDTO> {
+        const task = await this.createTask.execute(userId, taskData.title, taskData.description);
+        if (!task) throw new Error("Could not create task");
+        return task;
     }
 
-    public async delete(req: Request & IRequestUser, res: Response) {
-        try {
-            const user = req.user;
-            const id = req.params.id;
-            if (!user) return res.status(401).json({ error: "Unauthorized" });
-            await this.deleteTask.execute(user?.id!, id);
-            res.status(200).json({});
-        } catch (error: any) {
-            res.status(400).json({ error: error.message });
-        }
+    public async delete(taskId: string, userId: string): Promise<void> {
+        await this.deleteTask.execute(userId, taskId);
     }
 
-    public async update(req: Request & IRequestUser, res: Response) {
-        try {
-            const user = req.user;
-            const id = req.params.id;
-            const { title, description } = req.body;
-            if (!user) return res.status(401).json({ error: "Unauthorized" });
-            const updated = await this.updateTask.execute(user?.id!, id, title, description);
-            res.status(200).json(updated);
-        } catch (error: any) {
-            res.status(400).json({ error: error.message });
-        }
+    public async update(taskId: string, taskData: UpdateTaskDTO, userId: string): Promise<TaskDTO | null> {
+        const updatedTask = await this.updateTask.execute(userId, taskId, taskData.title!, taskData.description!);
+        return updatedTask;
     }
 
-    public async list(req: Request & IRequestUser, res: Response) {
-        try {
-            const user = req.user;
-            const tasks = await this.listTasks.execute(user?.id!);
-            res.status(200).json(tasks);
-        } catch (error: any) {
-            res.status(400).json({ error: error.message });
-        }
+    public async list(userId: string): Promise<TaskDTO[]> {
+        const tasks = await this.listTasks.execute(userId);
+        return tasks;
     }
-
 }

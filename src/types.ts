@@ -10,5 +10,7 @@ export const TYPES = {
     CreateTask: Symbol.for('CreateTask'),
     DeleteTask: Symbol.for('DeleteTask'),
     UpdateTask: Symbol.for('UpdateTask'),
-    ListTasks: Symbol.for('ListTasks')
+    ListTasks: Symbol.for('ListTasks'),
+    IUserController: Symbol.for('IUserController'),
+    ITaskController: Symbol.for('ITaskController')
 }
