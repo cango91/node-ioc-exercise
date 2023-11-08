@@ -24,20 +24,20 @@ import { TaskController } from "../application/interfaces/controllers/TaskContro
 
 
 const container = new Container();
+container.bind<IUserRepository>(TYPES.IUserRepository).to(MongoUserRepository);
+container.bind<ITaskRepository>(TYPES.ITaskRepository).to(MongoTaskRepository);
+container.bind<IDbConnection>(TYPES.IDbConnection).to(MongooseConnectionHandler);
 container.bind<ICryptoService>(TYPES.ICryptoService).to(CryptoService);
+container.bind<ITokenService>(TYPES.ITokenService).to(TokenService);
+container.bind<IUserController>(TYPES.IUserController).to(UserController);
+container.bind<ITaskController>(TYPES.ITaskController).to(TaskController);
 container.bind<RegisterUser>(TYPES.RegisterUser).to(RegisterUser);
 container.bind<LoginUser>(TYPES.LoginUser).to(LoginUser);
 container.bind<UserController>(TYPES.UserController).to(UserController);
-container.bind<IUserRepository>(TYPES.IUserRepository).to(MongoUserRepository);
-container.bind<IDbConnection>(TYPES.IDbConnection).to(MongooseConnectionHandler);
-container.bind<ITokenService>(TYPES.ITokenService).to(TokenService);
 container.bind<CreateTask>(TYPES.CreateTask).to(CreateTask);
 container.bind<DeleteTask>(TYPES.DeleteTask).to(DeleteTask);
 container.bind<UpdateTask>(TYPES.UpdateTask).to(UpdateTask);
 container.bind<ListTasks>(TYPES.ListTasks).to(ListTasks);
-container.bind<ITaskRepository>(TYPES.ITaskRepository).to(MongoTaskRepository);
-container.bind<IUserController>(TYPES.IUserController).to(UserController);
-container.bind<ITaskController>(TYPES.ITaskController).to(TaskController);
 
 
 export { container };
