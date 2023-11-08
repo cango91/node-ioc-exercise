@@ -59,14 +59,16 @@ export default class MongoTaskRepository implements ITaskRepository {
     async findTasksByUserId(userId: string): Promise<Task[]> {
         try {
             const tasks = await TaskModel.find({ userId });
-            return tasks.map(task => this.toTask(task));
+            if(!tasks.length) return [];
+            return tasks.map(task => this.toTask(task)) as Task[];
         } catch (error) {
             // handle error
             console.error(error);
             return [];
         }
     }
-    private toTask(doc: mongoose.Document): Task {
+    private toTask(doc: mongoose.Document): Task | null {
+        if(!doc) return null;
         const { _id, title, description, userId } = doc.toObject();
         return { id: _id.toString(), title, description, userId: userId.toString() };
     }

@@ -2,14 +2,18 @@ const API_URL = process.env.API_URL || 'http://localhost:3000/api';
 
 export const getToken = () => {
     const token = localStorage.getItem('token');
-    if (token) {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        if (payload.exp < Date.now() / 1000) {
-            localStorage.setItem('token', null);
-            return null;
+    try {
+        if (token) {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            if (payload.exp < Date.now() / 1000) {
+                localStorage.setItem('token', null);
+                return null;
+            }
         }
+        return token;
+    } catch (error) {
+        return null;
     }
-    return token;
 }
 
 export const sendRequest = async (url, method = "GET", payload = null) => {

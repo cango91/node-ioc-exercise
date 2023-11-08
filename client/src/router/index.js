@@ -1,21 +1,29 @@
 import { createRouter, createWebHistory } from "vue-router";
+import LoginView from '@/views/LoginView.vue';
+import SignupView from '@/views/SignupView.vue';
+import TasksView from '@/views/TasksView.vue';
+import HomeView from '@/views/HomeView.vue';
 
 const routes = [
     {
         path: '/',
         name: 'Home',
+        component: HomeView
     },
     {
         path: '/login',
-        name: 'Login'
+        name: 'Login',
+        component: LoginView
     },
     {
         path: '/signup',
-        name: 'Signup'
+        name: 'Signup',
+        component: SignupView
     },
     {
         path: '/tasks',
         name: 'Tasks',
+        component: TasksView,
         meta: { requiresAuth: true}
     }
 ];
