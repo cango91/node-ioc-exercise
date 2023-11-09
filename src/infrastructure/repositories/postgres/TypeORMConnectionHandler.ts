@@ -1,25 +1,28 @@
 import { injectable } from "inversify";
 import { DataSource } from "typeorm";
 import IDbConnection from "../../../application/services/IDbConnection";
+import User from "./entities/UserEntity";
+import Task from "./entities/TaskEntity";
 
 @injectable()
-export default class TypeORMConnectionHandler implements IDbConnection{
+export default class TypeORMConnectionHandler implements IDbConnection {
     dataSource: DataSource;
     private initialized = false;
 
-    constructor(){
+    constructor() {
         this.dataSource = new DataSource({
             type: "postgres",
             url: "",
             synchronize: true,
-            logging: true
+            logging: true,
+            entities: [User, Task]
         });
     }
 
-    connect = async (uri:string) =>{
-        this.dataSource.setOptions({url: uri});
+    connect = async (uri: string) => {
+        this.dataSource.setOptions({ url: uri });
         try {
-            if(this.initialized) return this.dataSource;
+            if (this.initialized) return this.dataSource;
             await this.dataSource.initialize();
             console.log("Connected to PostgreSQL");
             this.initialized = true;

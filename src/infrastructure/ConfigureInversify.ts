@@ -21,12 +21,18 @@ import MongoTaskRepository from "./repositories/mongo/MongoTaskRepository";
 import IUserController from "../application/interfaces/controllers/IUserController";
 import ITaskController from "../application/interfaces/controllers/ITaskController";
 import { TaskController } from "../application/interfaces/controllers/TaskController";
+import TypeORMConnectionHandler from "./repositories/postgres/TypeORMConnectionHandler";
+import TypeORMUserRepository from "./repositories/postgres/TypeORMUserRepository";
+import TypeORMTaskRepository from "./repositories/postgres/TypeORMTaskRepository";
 
 
 const container = new Container();
-container.bind<IUserRepository>(TYPES.IUserRepository).to(MongoUserRepository);
-container.bind<ITaskRepository>(TYPES.ITaskRepository).to(MongoTaskRepository);
-container.bind<IDbConnection>(TYPES.IDbConnection).to(MongooseConnectionHandler);
+// container.bind<IUserRepository>(TYPES.IUserRepository).to(MongoUserRepository);
+// container.bind<ITaskRepository>(TYPES.ITaskRepository).to(MongoTaskRepository);
+// container.bind<IDbConnection>(TYPES.IDbConnection).to(MongooseConnectionHandler);
+container.bind<IDbConnection>(TYPES.IDbConnection).to(TypeORMConnectionHandler);
+container.bind<IUserRepository>(TYPES.IUserRepository).to(TypeORMUserRepository);
+container.bind<ITaskRepository>(TYPES.ITaskRepository).to(TypeORMTaskRepository);
 container.bind<ICryptoService>(TYPES.ICryptoService).to(CryptoService);
 container.bind<ITokenService>(TYPES.ITokenService).to(TokenService);
 container.bind<IUserController>(TYPES.IUserController).to(UserController);
